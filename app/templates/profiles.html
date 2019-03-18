@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block main %}
+    {% include 'flash_messages.html' %}
+    
+<h1 class="profilesHeader">Profiles</h1>
+    
+{% if users %}
+    {% for user in users %}
+    <div class="profileBoxes">
+        <div class="img-box">
+            <img src="{{ url_for('static', filename = 'uploads/' + user.image) }}"></img>
+    </div>
+        <div class="profile_info">
+            <ul style="list-style: none;">
+            <li><h5>{{ user.first_name }} {{ user.last_name}}</h5></li>
+            <li><i class="fa fa-user-o"></i>  <span class = "data">{{user.gender}} </span><div class = "viewProfile_button"><a href="{{ url_for('userProfile', userid=user.id) }}"><button id="btn">View Profile</button></a> </div></li>
+            <li><i class="fa fa-map-marker"></i>  <span class = "data">{{user.location}}</span></li>
+            </ul>
+        </div>
+        </div>
+        <br>
+    {% endfor %}
+{% else %}
+    <p>There are currently no users.</p>
+{% endif %}
+
+{% endblock %}
