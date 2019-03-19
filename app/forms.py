@@ -1,16 +1,14 @@
+from app import db
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
-from wtforms.validators import InputRequired,Email
-from flask_wtf.file import FileAllowed, FileRequired, FileField 
-from flask import Flask, render_template, flash, session, redirect, url_for
-from wtforms import TextAreaField, TextField, SubmitField, SelectField
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+from wtforms import StringField, TextAreaField, SelectField
+from wtforms.validators import DataRequired,Email
 
-class NewProfileForm(FlaskForm):
-    firstname = StringField("First Name", validators=[InputRequired()])
-    lastname = StringField("Last Name", validators=[InputRequired()])
-    gender = SelectField("Gender", choices=[("None", "Select Gender"), ("Male", "Male"), ("Female", "Female")], validators=[InputRequired()])
-    email = StringField("Email", validators = [InputRequired(), Email()])
-    location = StringField("Location", validators = [InputRequired()])
-    bio = TextAreaField("Biography", validators = [InputRequired()])
-    photo = FileField("Profile Picture", validators=[FileRequired(), FileAllowed(['jpg','png','jpeg'], 'Only image files accepted.')])    
-    submit = SubmitField("Add Profile")
+class ProfileForm(FlaskForm):
+    firstName = StringField("First Name",validators=[DataRequired()])
+    lastName = StringField("Last Name",validators=[DataRequired()])
+    gender = SelectField("Gender",choices=[('male','Male'),('female','Female')])
+    email = StringField("Email",validators=[DataRequired(),Email()])
+    location = StringField("location",validators=[DataRequired()])
+    biography = TextAreaField("Biography",validators=[DataRequired()])
+    Pic = FileField("Profile Picture",validators=[FileRequired(),FileAllowed(['jpg', 'png', 'Images only!'])])
